@@ -13,7 +13,6 @@
 
 #define PORT 54000
 #define BUFFER_SIZE 4096
-//#define _CRT_SECURE_NO_WARNINGS
 
 class Discarder
 {

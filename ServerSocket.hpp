@@ -86,10 +86,10 @@ private:
     void HandleClient(SOCKET clientSocket, const std::string& name, int clientNumber)
     {
         char buffer[BUFFER_SIZE];
-        memset(buffer, 0, BUFFER_SIZE);
+        _ = memset(buffer, 0, BUFFER_SIZE);
 
         char message[BUFFER_SIZE];
-        memset(message, 0, BUFFER_SIZE);
+        _ = memset(message, 0, BUFFER_SIZE);
 
         int nameLength = (int)name.length();
         while (true)
@@ -98,15 +98,16 @@ private:
             if (bytesReceived <= 0)
             {
                 std::cout << name  << " disconnected" << std::endl;
+                connectedClients--;
                 break;
             }
 
             std::cout << name  << ": " << buffer << std::endl;
 
-            memset(message, 0, BUFFER_SIZE);
-            strcpy_s(message, name.c_str());
-            strcat_s(message, ": ");
-            strcat_s(message, buffer);
+            _ = memset(message, 0, BUFFER_SIZE);
+            _ = strcpy_s(message, name.c_str());
+            _ = strcat_s(message, ": ");
+            _ = strcat_s(message, buffer);
 
             if (connectedClients < 2)
             {
@@ -118,10 +119,10 @@ private:
                  // account for this at some point
             }
 
-            send(clientSockets[(int)(!(bool)clientNumber)], message, BUFFER_SIZE, 0); // lowkey sinning
+            _ = send(clientSockets[(int)(!(bool)clientNumber)], message, BUFFER_SIZE, 0); // lowkey sinning
 
         }
 
-        closesocket(clientSocket);
+        _ = closesocket(clientSocket);
     }
 };

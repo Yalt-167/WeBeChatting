@@ -72,31 +72,27 @@ public:
     void Write()
     {
         char dataBuffer[BUFFER_SIZE];
-        memset(dataBuffer, 0, BUFFER_SIZE);
+        _ = memset(dataBuffer, 0, BUFFER_SIZE);
 
         std::cin.ignore(); // clears cin s buffer
 
         while (true)
         {
             char userInput[BUFFER_SIZE];
-            //std::cin >> userInput;
+            
             std::cout << userName << ": ";
             std::cin.getline(userInput, BUFFER_SIZE);
-            //std::cout
-            //    //<< "\r"
-            //    << userName << ": " << userInput << std::endl;
 
             if (userInput == ":q") { break; } // ^^ we be WIMing
 
             send(socket_, userInput, BUFFER_SIZE, 0);
-            //std::cin.ignore();
         }
     }
 
     void Listen()
     {
         char dataBuffer[BUFFER_SIZE];
-        memset(dataBuffer, 0, BUFFER_SIZE);
+        _ = memset(dataBuffer, 0, BUFFER_SIZE);
 
         while (true)
         {
@@ -104,7 +100,7 @@ public:
             {
                 std::cout << "\r" << dataBuffer << std::endl;
                 std::cout << userName << ": ";
-                memset(dataBuffer, 0, BUFFER_SIZE);
+                _ = memset(dataBuffer, 0, BUFFER_SIZE);
             }
         }
     }
