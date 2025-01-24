@@ -9,7 +9,8 @@ public:
         InitWSA();
 
         socket_ = socket(AF_INET, SOCK_STREAM, 0);
-        if (socket_ == INVALID_SOCKET) {
+        if (socket_ == INVALID_SOCKET)
+        {
             std::cerr << "Couldn create Socket" << std::endl;
             WSACleanup();
             throw std::exception("Couldn create Socket");

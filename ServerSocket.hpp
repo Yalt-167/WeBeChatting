@@ -66,6 +66,7 @@ private:
         {
             std::cerr << "Bind failed" << std::endl;
             Cleanup();
+
             throw std::exception("Bind failed");
         }
 
@@ -86,10 +87,8 @@ private:
     void HandleClient(SOCKET clientSocket, const std::string& name, int clientNumber)
     {
         char buffer[BUFFER_SIZE];
-        _ = memset(buffer, 0, BUFFER_SIZE);
 
         char message[BUFFER_SIZE];
-        _ = memset(message, 0, BUFFER_SIZE);
 
         int nameLength = (int)name.length();
         while (true)
@@ -104,7 +103,6 @@ private:
 
             std::cout << name  << ": " << buffer << std::endl;
 
-            _ = memset(message, 0, BUFFER_SIZE);
             _ = strcpy_s(message, name.c_str());
             _ = strcat_s(message, ": ");
             _ = strcat_s(message, buffer);

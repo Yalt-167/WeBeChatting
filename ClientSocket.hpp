@@ -21,12 +21,12 @@ public:
 private:
     void Init()
     {
-        //serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1"); // loopback address -> basicallay connect to self // loopback address -> basicallay connect to self
+        //serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1"); // loopback address -> basically connect to self // lowkey lonely behaviour
 
         switch (inet_pton(AF_INET, "127.0.0.1", &serverAddr.sin_addr))
         {
         case 0:
-            std::cerr << "You messed up" << std::endl;
+            std::cerr << "You fucked up" << std::endl;
             std::cerr << "Incorrect input to inet_pton" << std::endl;
             throw std::exception("Invalid address");
             break;
@@ -48,21 +48,21 @@ private:
             throw std::exception("Couldn connect to server");
         }
 
-        send(socket_, userName.c_str(), (int)userName.size(), 0);
+        _  = send(socket_, userName.c_str(), (int)userName.size(), 0);
         std::cout << "Should be connected to the server ^^" << std::endl;
     }
 public:
     void Run() override
     {
         listenerThread = std::thread(
-            [=]()
+            [this]()
             {
                 Listen();
             }
         );
 
         writerThread = std::thread(
-            [=]()
+            [this]()
             {
                 Write();
             }
@@ -71,28 +71,25 @@ public:
 
     void Write()
     {
-        char dataBuffer[BUFFER_SIZE];
-        _ = memset(dataBuffer, 0, BUFFER_SIZE);
-
         std::cin.ignore(); // clears cin s buffer
+
+        char userInput[BUFFER_SIZE];
 
         while (true)
         {
-            char userInput[BUFFER_SIZE];
             
             std::cout << userName << ": ";
             std::cin.getline(userInput, BUFFER_SIZE);
 
-            if (userInput == ":q") { break; } // ^^ we be WIMing
+            if (strcmp(userInput, ":q") == 0) { break; } // ^^ we be WIMing
 
-            send(socket_, userInput, BUFFER_SIZE, 0);
+            _ = send(socket_, userInput, BUFFER_SIZE, 0);
         }
     }
 
     void Listen()
     {
         char dataBuffer[BUFFER_SIZE];
-        _ = memset(dataBuffer, 0, BUFFER_SIZE);
 
         while (true)
         {
@@ -100,7 +97,6 @@ public:
             {
                 std::cout << "\r" << dataBuffer << std::endl;
                 std::cout << userName << ": ";
-                _ = memset(dataBuffer, 0, BUFFER_SIZE);
             }
         }
     }

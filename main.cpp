@@ -3,13 +3,17 @@
 #include "ServerSocket.hpp"
 
 
-int main()
+int main(int argc, char** argv)
 {
-	std::cout << "Choose your role:\n - Server (1)\n - Client (Whatever)\n" << std::endl;
-	int role;
-	std::cin >> role;
+	if (argc < 2) { throw std::exception("Don t waste my time"); }
 
-	bool isServer = role == 1;
+	bool isServer = strcmp(argv[1], "Server") == 0;
+
+	//std::cout << "Choose your role:\n - Server (1)\n - Client (Whatever)\n" << std::endl;
+	//int role;
+	//std::cin >> role;
+
+	
 
 	std::string username;
 	if (!isServer)
@@ -22,7 +26,7 @@ int main()
 
 	socket_->Run();
 
-	while (true) { }
+	while (true);
 
 
 	delete socket_;
